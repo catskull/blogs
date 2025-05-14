@@ -110,6 +110,29 @@ ${body}
         }
       }
 
+      const indexHtml = `
+---
+---
+{% assign path_segments = page.url | split: '/' %}
+{% assign user = path_segments[1] %}
+{% include blog_index.html user=user %}
+`;
+			console.log(utf8ToBase64Modern(indexHtml));
+      // create index.html, might fail if already exists and that's okay
+      try {
+	      await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}',
+	      {
+	        ...repo,
+	        path: `_blogs/${message.from}/index.html`,
+	        message: `Create index.html`,
+	        content: utf8ToBase64Modern(indexHtml),
+	        branch: `${message.from}-${subjectSlug}`,
+	      });
+	    } catch (e) {
+	    	console.log('Failed creating index.html, already exists?');
+	    	console.log(e.message);
+	    }
+
       // commit html last since we update for each inline image
       await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}',
       {
