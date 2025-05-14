@@ -110,12 +110,12 @@ ${body}
         }
       }
 
-      const indexHtml = `
----
+      const indexHtml = `---
 ---
 {% assign path_segments = page.url | split: '/' %}
 {% assign user = path_segments[1] %}
 {% include blog_index.html user=user %}
+
 `;
 			console.log(utf8ToBase64Modern(indexHtml));
       // create index.html, might fail if already exists and that's okay
