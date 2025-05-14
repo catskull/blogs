@@ -86,8 +86,7 @@ ${body}
       // commit each attachment, only dealing with inline images for now
       for (const attachment of email.attachments) {
         console.log(`committing ${attachment.filename}...`)
-        const filepath = `assets/images/blogs/${message.from}
-/${dateStamp}/${subjectSlug}/${attachment.filename}`;
+        const filepath = `assets/images/blogs/${message.from}/${dateStamp}/${subjectSlug}/${attachment.filename}`;
 
         await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}',
         {
