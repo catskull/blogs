@@ -134,7 +134,7 @@ ${body}
         ...repo,
         pull_number: pr.number,
         merge_method: 'squash',
-        commit_title: `publish blog post for ${email.from}`,
+        commit_title: `publish blog post for ${message.from}`,
         commit_message: `Processing email from ${message.from} with subject: ${email.subject}
 Containing ${email.attachments ? email.attachments.length : 0} attachments.`,
       });
