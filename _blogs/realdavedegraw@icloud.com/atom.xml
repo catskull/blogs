@@ -10,14 +10,14 @@ layout: false
 
   <title>{{ user | xml_escape }}'s blog</title>
   <subtitle>{{ "I'm blogging like it's 1999." | xml_escape }}</subtitle>
-  <link href="https://{{ page.url | absolute_url | xml_escape }}" rel="self" />
-  <link href="{{ page.url }}" />
+  <link href="{{ page.url | absolute_url | xml_escape }}.xml" rel="self" />
+  <link href="https://blogs.catskull.net/{{ user }}" />
   <id>https://{{ page.url | absolute_url | xml_escape }}</id>
   <updated>{{ site.time | date_to_xmlschema }}</updated>
   
   {% for post in sorted_posts %}
     {% assign folder = post.path | split: '/' | slice: 1 | first %}
-    {% if folder == user and post.name != 'index.html' and post.name != 'feed.xml' %}
+    {% if folder == user and post.name != 'index.html' and post.name != 'atom.xml' %}
       <entry>
         {% assign post_title = post.title | smartify | strip_html | normalize_whitespace | xml_escape %}
         <title>{{ post_title }}</title>
