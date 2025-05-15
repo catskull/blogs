@@ -110,9 +110,9 @@ ${body}
       }
 
       const atomXml = `---
----
 layout: false
 ---
+{% include atom_feed.xml %}
 
 `;
 
