@@ -104,7 +104,7 @@ ${body}
         } else {
         // otherwise just add the images to a new tag
           blogPostHtml += `
-<img src="${`/${filepath}`}" alt="${attachment.filename}"/>
+<img src="${`https://blogs.catskull.net/${filepath}`}" alt="${attachment.filename}"/>
 `
         }
       }

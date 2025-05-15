@@ -5,16 +5,13 @@ layout: false
 {%- assign user = path_segments[1] -%}
 {%- assign sorted_posts = site.blogs | sort: 'date' | reverse -%}
 <?xml version="1.0" encoding="utf-8"?>
-
 <feed xmlns="http://www.w3.org/2005/Atom">
-
   <title>{{ user | xml_escape }}'s blog</title>
   <subtitle>{{ "I'm blogging like it's 1999." | xml_escape }}</subtitle>
   <link href="https://{{ page.url | absolute_url | xml_escape }}.xml" rel="self" />
   <link href="https://blogs.catskull.net/{{ user }}" />
   <id>https://{{ page.url | absolute_url | xml_escape }}</id>
   <updated>{{ site.time | date_to_xmlschema }}</updated>
-  
   {% for post in sorted_posts %}
     {% assign folder = post.path | split: '/' | slice: 1 | first %}
     {% if folder == user and post.name != 'index.html' and post.name != 'atom.xml' %}
