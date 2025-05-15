@@ -1,0 +1,53 @@
+---
+layout: false
+---
+{%- assign path_segments = page.url | split: '/' -%}
+{%- assign user = path_segments[1] -%}
+{%- assign sorted_posts = site.blogs | sort: 'date' | reverse -%}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <generator uri="https://jekyllrb.com/" version="{{ jekyll.version }}">Jekyll</generator>
+  <link href="{{ page.url | absolute_url }}" rel="self" type="application/atom+xml" />
+  <link href="{{ '/' | absolute_url }}" rel="alternate" type="text/html" {% if site.lang %}hreflang="{{ site.lang }}" {% endif %}/>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <id>{{ page.url | absolute_url | xml_escape }}</id>
+
+  <title type="html">{{ user | xml_escape }}'s blog</title>
+
+  <subtitle>{{ "I'm blogging like it's 1999." | xml_escape }}</subtitle>
+
+  <author>
+      <name>{{ user | xml_escape }}</name>
+      <email>{{ user | xml_escape }}</email>
+  </author>
+
+  {% for post in sorted_posts %}
+    {% assign folder = post.path | split: '/' | slice: 1 | first %}
+    {% if folder == user and post.name != 'index.html' and post.name != 'feed.xml' %}
+      <entry{% if post.lang %}{{" "}}xml:lang="{{ post.lang }}"{% endif %}>
+        {% assign post_title = post.title | smartify | strip_html | normalize_whitespace | xml_escape %}
+
+        <title type="html">{{ post_title }}</title>
+        <link href="{{ post.url | absolute_url }}" rel="alternate" type="text/html" title="{{ post_title }}" />
+        <published>{{ post.date | date_to_xmlschema }}</published>
+        <updated>{{ post.last_modified_at | default: post.date | date_to_xmlschema }}</updated>
+        <id>{{ post.id | absolute_url | xml_escape }}</id>
+        <author>
+            <name>{{ user | default: "" | xml_escape }}</name>
+            <email>{{ user | xml_escape }}</email>
+        </author>
+
+        <content type="html" xml:base="{{ post.url | absolute_url | xml_escape }}"><![CDATA[{{ post.content | strip }}]]></content>
+
+        {% assign post_image = post.image.path | default: post.image %}
+        {% if post_image %}
+          {% unless post_image contains "://" %}
+            {% assign post_image = post_image | absolute_url %}
+          {% endunless %}
+          <media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="{{ post_image | xml_escape }}" />
+          <media:content medium="image" url="{{ post_image | xml_escape }}" xmlns:media="http://search.yahoo.com/mrss/" />
+        {% endif %}
+      </entry>
+    {% endif %}
+  {% endfor %}
+</feed>
