@@ -23,7 +23,7 @@ layout: false
         <title>{{ post_title }}</title>
         <link href="https://{{ post.url | absolute_url }}" rel="alternate" type="text/html" title="{{ post_title }}" />
         <id>https://{{ post.url | absolute_url }}</id>
-        <published>{{ post.date | date_to_xmlschema }}</published>
+        <updated>{{ post.date | date_to_xmlschema }}</updated>
         <content type="html" xml:base="{{ post.url | absolute_url | xml_escape }}"><![CDATA[{{ post.content | strip }}]]></content>
         <author>
           <name>{{ user }}</name>
