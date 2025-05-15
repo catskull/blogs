@@ -110,6 +110,7 @@ ${body}
       }
 
       const indexHtml = `---
+layout: default
 ---
 {% assign path_segments = page.url | split: '/' %}
 {% assign user = path_segments[1] %}
