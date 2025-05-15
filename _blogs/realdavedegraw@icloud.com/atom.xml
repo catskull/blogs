@@ -10,7 +10,7 @@ layout: false
 
   <title>{{ user | xml_escape }}'s blog</title>
   <subtitle>{{ "I'm blogging like it's 1999." | xml_escape }}</subtitle>
-  <link href="{{ page.url | absolute_url | xml_escape }}.xml" rel="self" />
+  <link href="https://{{ page.url | absolute_url | xml_escape }}.xml" rel="self" />
   <link href="https://blogs.catskull.net/{{ user }}" />
   <id>https://{{ page.url | absolute_url | xml_escape }}</id>
   <updated>{{ site.time | date_to_xmlschema }}</updated>
@@ -25,7 +25,6 @@ layout: false
         <id>https://{{- post.url | absolute_url -}}</id>
         <published>{{ post.date | date_to_xmlschema }}</published>
         <id>{{ post.id | absolute_url | xml_escape }}</id>
-        <author>{{ user }}</author>
         <content type="html" xml:base="{{ post.url | absolute_url | xml_escape }}"><![CDATA[{{ post.content | strip }}]]></content>
         <author>
           <name>{{ user }}</name>
