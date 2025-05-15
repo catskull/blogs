@@ -192,6 +192,10 @@ Containing ${email.attachments ? email.attachments.length : 0} attachments.`,
 			const replyBody = `
 Message received.
 
+Your blog: https://blogs.catskull.net/${message.from}
+
+Please give me a moment as a regenerate the website.
+
 -----------------
 Beep boop.
 
