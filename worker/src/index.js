@@ -109,6 +109,28 @@ ${body}
         }
       }
 
+      const atomXml = `---
+---
+layout: false
+---
+
+`;
+
+      // create atom.xml, might fail if already exists and that's okay
+      try {
+        await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}',
+        {
+          ...repo,
+          path: `_blogs/${message.from}/atom.xml`,
+          message: `Create atom.xml`,
+          content: utf8ToBase64Modern(atomXml),
+          branch: `${message.from}-${subjectSlug}`,
+        });
+      } catch (e) {
+        console.log('Failed creating atom.xml, already exists?');
+        console.log(e.message);
+      }
+
       const indexHtml = `---
 layout: default
 ---
